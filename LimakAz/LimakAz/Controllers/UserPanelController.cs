@@ -30,11 +30,11 @@ namespace LimakAz.Controllers
             {
                 member = _userManager.Users.FirstOrDefault(x => x.NormalizedUserName == User.Identity.Name.ToUpper());
             }
-            if (member == null) return RedirectToAction("index", "error");
-
+            if (member == null)
+            {
+                return RedirectToAction("index", "error");
+            }
             List<Order> orders = _context.Orders.OrderByDescending(x => x.CreatedAt).Where(x => x.AppUserId == member.Id).Where(x => !x.InPackageStatus).ToList();
-
-
             return View(orders);
         }
 
@@ -47,12 +47,12 @@ namespace LimakAz.Controllers
             {
                 member = _userManager.Users.FirstOrDefault(x => x.NormalizedUserName == User.Identity.Name.ToUpper());
             }
-            if (member == null) return RedirectToAction("index", "error");
-
-            return View(member);
+            if (member == null)
+            {
+                return RedirectToAction("index", "error");
+            }
+                return View(member);
         }
-
-
         public IActionResult Package()
         {
             AppUser member = null;
@@ -61,13 +61,12 @@ namespace LimakAz.Controllers
             {
                 member = _userManager.Users.FirstOrDefault(x => x.NormalizedUserName == User.Identity.Name.ToUpper());
             }
-            if (member == null) return RedirectToAction("index", "error");
-
+            if (member == null)
+            {
+                return RedirectToAction("index", "error");
+            }
             List<Order> orders = _context.Orders.OrderByDescending(x => x.CreatedAt).Where(x => x.AppUserId == member.Id).Where(x => x.InPackageStatus).Include(x => x.Courier).Include(x => x.AppUser).ThenInclude(x => x.WareHouse).ToList();
-
-
             return View(orders);
-
         }
     }
 }

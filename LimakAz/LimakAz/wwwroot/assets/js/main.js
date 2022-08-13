@@ -1,8 +1,4 @@
-
-
-
 // Accordion
-
 const accordion = document.getElementsByClassName("content-box");
 
 function removeActivesInAccordion() {
@@ -18,8 +14,6 @@ for (let i = 0; i < accordion.length; i++) {
     })
 
 }
-
-
 
 // User Panel Button
 

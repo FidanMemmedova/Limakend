@@ -29,9 +29,9 @@
                                         <p class="contact-text">
                                             @contact.Address
                                         </p>
-                                        <div class="contact-title">
+                                        <div class="contact-title" onclick="mapFunction()">
                                             <img src="~/assets/images/map.svg" alt="map">
-                                            <h3 style="text-decoration:underline; cursor:pointer" onclick="mapFunction()">Xəritəyə bax</h3>
+                                            <h3 style="text-decoration:underline; cursor:pointer">Xəritəyə bax</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                         <h3 style="font-size: 18px; line-height: 22px;">*9595</h3>
                                     </div>
                                     <div class="contact-title contact-title-mail">
-                                        <img src="~/assets/images/mail.svg" alt="">
+                                        <img src="~/assets/images/mail.svg" alt="mail">
                                         <h3>@contact.InfoMail</h3>
                                     </div>
                                     <div class="contact-article">
@@ -74,8 +74,8 @@
                                         <p class="contact-text">24 Saat</p>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div id="contact-map" class="address-map">
+                                <div id="contact-map" class="col-12">
+                                    <div class="address-map">
                                         @Html.Raw(contact.Location)
                                     </div>
                                 </div>

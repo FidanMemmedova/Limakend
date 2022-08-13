@@ -33,8 +33,10 @@ namespace LimakAz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(MemberRegisterViewModel registerVM)
         {
-            if (!ModelState.IsValid) return View();
-
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             AppUser member = await _userManager.FindByNameAsync(registerVM.UserName);
 
             if (member != null)
@@ -85,7 +87,10 @@ namespace LimakAz.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(MemberLoginViewModel memberLoginVM)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             AppUser member = _userManager.Users.FirstOrDefault(x => x.NormalizedEmail == memberLoginVM.Email.ToUpper());
 
             if (member == null)
@@ -108,7 +113,7 @@ namespace LimakAz.Controllers
 
             if (admin != null)
             {
-                return RedirectToAction("index", "dashboard", new { area = "manage" });
+                return RedirectToAction("index", "dashboard", new { area = "AdminPanel" });
             }
             else
             {
@@ -128,8 +133,11 @@ namespace LimakAz.Controllers
         public async Task<IActionResult> Profile()
         {
             AppUser member = await _userManager.FindByNameAsync(User.Identity.Name);
-            if (member == null) return RedirectToAction("index", "error");
 
+            if (member == null) 
+            {
+             return RedirectToAction("index", "error");
+            }
 
             ViewBag.WareHouses = _context.WareHouses.ToList();
             ProfileViewModel profileVM = new ProfileViewModel();
@@ -167,11 +175,16 @@ namespace LimakAz.Controllers
         {
             ViewBag.WareHouses = _context.WareHouses.ToList();
 
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
 
             AppUser member = await _userManager.FindByNameAsync(User.Identity.Name);
-            if (member == null) return RedirectToAction("index", "error");
-
+            if (member == null)
+            {
+                return RedirectToAction("index", "error");
+            }
             if (!string.IsNullOrWhiteSpace(profileVM.ConfirmNewPassword) && !string.IsNullOrWhiteSpace(profileVM.NewPassword))
             {
                 var passwordChangeResult = await _userManager.ChangePasswordAsync(member, profileVM.CurrentPassword, profileVM.NewPassword);
@@ -248,12 +261,9 @@ namespace LimakAz.Controllers
                     {
                         ModelState.AddModelError("", item.Description);
                     }
-
                     return View();
                 }
-
             }
-
             return RedirectToAction("profile", "account");
         }
 

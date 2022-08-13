@@ -1,4 +1,4 @@
-﻿//Location map display block/none content
+﻿//Contact page Show/Hide Map 
 function mapFunction() {
     var x = document.getElementById("contact-map");
     if (x.style.display === "none")
